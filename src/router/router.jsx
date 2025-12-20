@@ -1,8 +1,8 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import Login from "./features/auth/Login/Login";
-import Signup from "./features/auth/Signup/Signup";
-import Dashboard from "./features/dashboard/Dashboard";
-import App from "./App";
+import Login from "../features/auth/Login/Login";
+import Signup from "../features/auth/Signup/Signup";
+import Dashboard from "../features/dashboard/Dashboard";
+import App from "../App";
 
 const router = createBrowserRouter([
   {

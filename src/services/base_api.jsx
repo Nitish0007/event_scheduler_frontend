@@ -1,9 +1,9 @@
 import axios from 'axios';
-
-// Create a scalable axios instance
-// You can switch the baseURL based on environment variables (VITE_API_URL)
+import { serverConfig } from '../config/server_config';
+ 
+const base_url = serverConfig.api_host || 'http://localhost:3000';
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+  baseURL: base_url,
   headers: {
     'Content-Type': 'application/json',
   },
