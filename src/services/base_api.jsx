@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { serverConfig } from '../config/server_config';
- 
+import { serverConfig } from '../config/serverConfig';
+
 const base_url = serverConfig.api_host || 'http://localhost:3000';
 const api = axios.create({
   baseURL: base_url,

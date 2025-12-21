@@ -1,15 +1,11 @@
-// import { useState } from 'react'
-import Dashboard from './features/dashboard/Dashboard.jsx'
 import './App.css'
+
+import WelcomePage from './pages/WelcomePage'
 
 function App() {
 
   return (
-    <>
-      <div>
-          <Dashboard />
-      </div>
-    </>
+    <WelcomePage />
   )
 }
 
