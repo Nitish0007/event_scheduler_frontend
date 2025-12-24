@@ -5,22 +5,20 @@ import { Link } from "react-router-dom";
 const Signup = ({ role, onSubmit }) => {
   const form = useForm({
     initialValues: {
-      name: "",
       email: "",
       password: "",
-      confirmPassword: "",
-      role: "role"
+      password_confirmation: "",
+      role: role
     },
     validate: {
-      name: (value) => (value.length < 3 ? "Name must be at least 3 characters long" : null),
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
       password: (value) => (value.length < 6 ? "Password must be at least 6 characters long" : null),
-      confirmPassword: (value, values) => (value !== values.password ? "Passwords did not match" : null),
-      role: (value) => (value.trim() === "" || value == null || !["customer", "admin"].includes(value)) ? "Invalid role" : null
-    },
-    onSubmitPreventDefault: true,
-    validateOnSubmit: true
+      password_confirmation: (value, values) => (value !== values.password ? "Passwords did not match" : null),
+      role: (value) => (value.trim() === "" || value == null || !["customer", "organizer"].includes(value)) ? "Invalid role" : value
+    }
   });
+
+  const oppositeRole = role === "customer" ? "organizer" : "customer";
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -29,14 +27,7 @@ const Signup = ({ role, onSubmit }) => {
           Sign up as {role.charAt(0).toUpperCase() + role.slice(1)}
         </Title>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
-            <TextInput
-              label="Name"
-              placeholder="Your name"
-              required
-              mb="md"
-              {...form.getInputProps("name")}
-            />
+          <form onSubmit={(e) => onSubmit(e, form.values)}>
             <TextInput
               label="Email"
               placeholder="you@example.com"
@@ -56,7 +47,7 @@ const Signup = ({ role, onSubmit }) => {
               placeholder="Confirm your password"
               required
               mb="xl"
-              {...form.getInputProps("confirmPassword")}
+              {...form.getInputProps("password_confirmation")}
             />
             <Button fullWidth mt="xl" type="submit">
               Sign up
@@ -67,6 +58,9 @@ const Signup = ({ role, onSubmit }) => {
 
       <div className="text-center mt-6">
         Already have an account?  <Link to={`/${role}/login`}>Login</Link>
+      </div>
+      <div className="text-center mt-6">
+        Sign up as {oppositeRole}? <Link to={`/${oppositeRole}/signup`}>Sign up</Link>
       </div>
     </div>
   );

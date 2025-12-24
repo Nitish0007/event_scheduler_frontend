@@ -5,23 +5,21 @@ import Signup from "../../features/auth/Signup";
 const SignupPage = ({ role }) => {
   const navigate = useNavigate();
 
-  const handleSignup = (data) => {
-    try {
-      const response = authService.signup(data);
-      if(response.status === 201){
-        navigate("/login");
+  const handleSignup = (e,data) => {
+    e.preventDefault();
+    authService.signup(role, data).then((response) => {
+      navigate(`/${role}/login`);
+    }).catch((error) => {
+      if(error.response){
+        console.log(error.response.data);
       }else{
-        // needs to be handled by pop-ups
-        console.log("signup failed: ", response.data);
+        console.log(error.message);
       }
-    }catch (error) {
-      console.log("Error while signing up: ", error);
-      throw error;
-    }
+    })
   }
 
   return (
-    <Signup role={role} onSubmit={handleSignup} />
+    <Signup role={role} onSubmit={(e,data) => handleSignup(e,data)} />
   )
 }
 

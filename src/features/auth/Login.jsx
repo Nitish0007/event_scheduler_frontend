@@ -2,20 +2,19 @@ import { TextInput, PasswordInput, Button, Container, Title, Paper } from "@mant
 import { useForm } from "@mantine/form";
 import { Link } from "react-router-dom";
 
-const Login = ({ role, onSubmit }) => {
+const Login = ({ role = "customer", onSubmitHandler }) => {
   const form = useForm({
     initialValues: {
       email: "",
       password: ""
     },
-    validates: {
+    validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
       password: (value) => (value.length < 6 ? "Password must be at least 6 characters long" : null)
-    },
-    onSubmitPreventDefault: true,
-    validateOnSubmit: true
+    }
   })
 
+  const oppositeRole = role === "customer" ? "organizer" : "customer";
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -24,7 +23,7 @@ const Login = ({ role, onSubmit }) => {
           Login as {role.charAt(0).toUpperCase() + role.slice(1)}
         </Title>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <form onSubmit={form.onSubmit((values) => onSubmit(values))}>
+          <form onSubmit={(e) => onSubmitHandler(e, form.values)}>
             <TextInput
               label="Email"
               placeholder="you@example.com"
@@ -48,6 +47,9 @@ const Login = ({ role, onSubmit }) => {
 
       <div className="text-center mt-6">
         Don't have an account? <Link to={`/${role}/signup`}>Sign up</Link>
+      </div>
+      <div className="text-center mt-6">
+        Login as {oppositeRole}? <Link to={`/${oppositeRole}/login`}>Login</Link>
       </div>
     </div>
   )
