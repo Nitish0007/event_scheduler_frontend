@@ -1,20 +1,22 @@
 import base_api from "./base_api";
 
 export const authService = {
-  login: async (data) => {
+  login: async (role, data) => {
     try {
-      const response = await base_api.post("/login", data);
-      return response.data;
+      const payload = { "user": data }
+      const response = await base_api.post(`${role}s/sign_in`, payload);
+      return response;
     }catch (error) {
       console.log("Error while logging in: ", error);
       throw error;
     }
   },
 
-  signup: async (data) => {
+  signup: async (role, data) => {
     try {
-      const response = await base_api.post("/signup", data);
-      return response.data;
+      const payload = { "user": data }
+      const response = await base_api.post(`${ role}s/sign_up`, payload);
+      return response;
     }catch (error) {
       console.log("Error while signing up: ", error);
       throw error;

@@ -5,7 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 const WelcomePage = () => {
   const [isHost, setIsHost] = useState(false);
 
-  const handleHostChange = () => {
+  const handleUserTypeChange = () => {
     setIsHost(!isHost);
   }
 
@@ -19,23 +19,23 @@ const WelcomePage = () => {
     <div className="flex flex-col gap-4 items-center">
       <div className="flex flex-col gap-4">
         <h1 className="text-2xl font-bold">Welcome to Event Scheduler</h1>
-        <p className="text-gray-500">Please login to continue as {isHost ? "Event host" : "customer"}</p>
+        <p className="text-gray-500">Please login to continue as {isHost ? "Event organizer" : "customer"}</p>
       </div>
 
       <div className="flex justify-center gap-4">
         <Button variant="filled"
-          onClick={() => handleRouting("login", isHost ? "host" : "customer")}
+          onClick={() => handleRouting("login", isHost ? "organizer" : "customer")}
         >Login</Button>
       </div>
 
-      <div onClick={handleHostChange}>
-        Are you {isHost ? "customer" : "event host"}? 
-        <a href="#" className="text-blue-500" onClick={handleHostChange}> Click here</a>
+      <div onClick={handleUserTypeChange}>
+        Are you {isHost ? "customer" : "event organizer"}? 
+        <a href="#" className="text-blue-500" onClick={handleUserTypeChange}> Click here</a>
       </div>
 
       <div>
-        Create{isHost ? " host " : " customer "}account   
-        <Link to={`/${isHost ? "host" : "customer"}/signup`} className="text-blue-500"> Click here</Link>
+        Create{isHost ? " organizer " : " customer "}account   
+        <Link to={`/${isHost ? "organizer" : "customer"}/signup`} className="text-blue-500"> Click here</Link>
       </div>
     </div>
   )

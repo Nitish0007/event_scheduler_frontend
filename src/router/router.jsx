@@ -21,12 +21,12 @@ const router = createBrowserRouter([
     element: <SignupPage role="customer" />,
   },
   {
-    path: "/host/login",
-    element: <LoginPage role="host" />,
+    path: "/organizer/login",
+    element: <LoginPage role="organizer" />,
   },
   {
-    path: "/host/signup",
-    element: <SignupPage role="host" />,
+    path: "/organizer/signup",
+    element: <SignupPage role="organizer" />,
   },
   {
     path: "/dashboard",
