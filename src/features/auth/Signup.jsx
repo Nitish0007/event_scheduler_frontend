@@ -8,13 +8,11 @@ const Signup = ({ role, onSubmit }) => {
       email: "",
       password: "",
       password_confirmation: "",
-      role: role
     },
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
       password: (value) => (value.length < 6 ? "Password must be at least 6 characters long" : null),
       password_confirmation: (value, values) => (value !== values.password ? "Passwords did not match" : null),
-      role: (value) => (value.trim() === "" || value == null || !["customer", "organizer"].includes(value)) ? "Invalid role" : value
     }
   });
 

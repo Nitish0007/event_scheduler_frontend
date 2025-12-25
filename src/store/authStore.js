@@ -5,14 +5,13 @@ export const useAuthStore = create(
   persist(
     (set) => ({
       user: null,
-      isAuthenticated: false,
-      login: (userData) => set({ user: userData, isAuthenticated: true }),
-      logout: () => set({ user: null, isAuthenticated: false }),
+      login: (userData) => set({ user: userData }),
+      logout: () => set({ user: null }),
       updateUser: (updates) => set((state) => ({ user: { ...state.user, ...updates } })),
     }),
     {
       name: '_es_user', // unique name for session storage key
-      storage: createJSONStorage(() => sessionStorage), // persist to sessionStorage
+      storage: createJSONStorage(() => localStorage), // persist to localStorage
     }
   )
 );
