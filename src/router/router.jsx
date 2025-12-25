@@ -1,12 +1,14 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-// import Login from "../features/auth/Login/Login";
-// import Signup from "../features/auth/Signup/Signup";
+import ProtectedRoute from "./ProtectedRoute";
+import MainLayout from "../components/layout/MainLayout";
+import App from "../App";
+
 import Dashboard from "../features/dashboard/Dashboard";
 import LoginPage from "../pages/auth/LoginPage";
 import SignupPage from "../pages/auth/SignupPage";
-import App from "../App";
 
 const router = createBrowserRouter([
+  // public routes
   {
     path: "/",
     element: <App />,
@@ -14,7 +16,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/customer/login",
-    element: <LoginPage role="customer"/>,
+    element: <LoginPage role="customer" />,
   },
   {
     path: "/customer/signup",
@@ -28,11 +30,25 @@ const router = createBrowserRouter([
     path: "/organizer/signup",
     element: <SignupPage role="organizer" />,
   },
+
+  // protected routes
   {
-    path: "/dashboard",
-    element: <Dashboard />,
+    element: <ProtectedRoute />,
+    children: [
+      {
+        element: <MainLayout />, // Layout applies to all children
+        children: [
+          {
+            path: "/dashboard",
+            element: <Dashboard />,
+          },
+          // Add other protected routes here that need the Navbar
+        ]
+      }
+    ]
   },
-  // Catch-all redirect
+
+  // To catch-all redirect
   {
     path: "*",
     element: <Navigate to="/" replace />,
