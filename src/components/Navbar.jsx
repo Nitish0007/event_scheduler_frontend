@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { Container, Group, Burger, Text, Menu, UnstyledButton, Avatar, rem } from '@mantine/core';
+import { IconLogout, IconChevronDown } from '@tabler/icons-react';
 import { useDisclosure } from '@mantine/hooks';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
-import { IconLogout, IconChevronDown, IconUser } from '@tabler/icons-react';
+import { useSidebarStore } from '../store/sidebarStore';
 
 const Navbar = () => {
   const [opened, { toggle }] = useDisclosure(false);
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
   const [userMenuOpened, setUserMenuOpened] = useState(false);
+  const { isOpen, toggleSidebar } = useSidebarStore();
 
   const handleLogout = () => {
     logout();
@@ -17,26 +19,22 @@ const Navbar = () => {
   };
 
   return (
-    <header className="h-[60px] border-b border-gray-200 bg-white">
-      <Container size="md" className="h-full">
+    <header className="h-[70px] border-b border-gray-200 bg-white sticky top-0">
+      <Container fluid className="h-full">
         <div className="h-full flex justify-between items-center">
-          {/* Logo Section */}
-          <Text
-            fw={700}
-            size="xl"
-            variant="gradient"
-            gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-            className="cursor-pointer select-none"
-            onClick={() => navigate('/dashboard')}
-          >
-            EventScheduler
-          </Text>
-
-          {/* Desktop Navigation - You can add links here */}
-          <Group gap={5} visibleFrom="xs">
-            {/* Example Link
-            <Button variant="subtle">Events</Button>
-             */}
+          
+          <Group gap={20} visibleFrom="xs">
+            <Burger opened={isOpen} onClick={toggleSidebar} />
+            <Text
+              fw={700}
+              size="xl"
+              variant="gradient"
+              gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+              className="cursor-pointer select-none"
+              onClick={() => navigate('/dashboard')}
+            >
+              EventScheduler
+            </Text>
           </Group>
 
           {/* User Menu */}
