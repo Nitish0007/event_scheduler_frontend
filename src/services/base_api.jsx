@@ -2,9 +2,10 @@ import axios from 'axios';
 import { serverConfig } from '../config/serverConfig';
 
 const base_url = serverConfig.api_host || 'http://localhost:3000';
-const storedToken = localStorage.getItem("_es_user") || "";
-console.log(storedToken);
-const token = storedToken ? `Bearer ${JSON.parse(storedToken).token}` : "";
+const userData = localStorage.getItem("_es_user") || "";
+const storedUser = JSON.parse(userData)?.state?.user
+const token = storedUser?.token ? `Bearer ${storedUser.token}` : "";
+
 const api = axios.create({
   baseURL: base_url,
   headers: {
