@@ -3,9 +3,11 @@ import ProtectedRoute from "./ProtectedRoute";
 import MainLayout from "../components/layout/MainLayout";
 import App from "../App";
 
-import Dashboard from "../features/dashboard/Dashboard";
+import DashboardPage from "../pages/DashboardPage";
 import LoginPage from "../pages/auth/LoginPage";
 import SignupPage from "../pages/auth/SignupPage";
+import EventShowPage from "../pages/events/EventShowPage";
+import EventsIndexPage from "../pages/events/EventsIndexPage";
 
 const router = createBrowserRouter([
   // public routes
@@ -40,8 +42,16 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/dashboard",
-            element: <Dashboard />,
+            element: <DashboardPage />,
           },
+          {
+            path: "/events",
+            element: <EventsIndexPage />,
+          },
+          {
+            path: "/events/:id",
+            element: <EventShowPage />,
+          }
           // Add other protected routes here that need the Navbar
         ]
       }

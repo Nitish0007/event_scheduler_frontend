@@ -1,5 +1,3 @@
-import React from 'react'
-
 const CustomerDashboard = () => {
   return (  
     <div>
@@ -7,3 +5,5 @@ const CustomerDashboard = () => {
     </div>
   )
 }
+
+export default CustomerDashboard;
