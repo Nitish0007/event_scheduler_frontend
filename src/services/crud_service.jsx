@@ -11,9 +11,9 @@ const crudService = {
     }
   },
 
-  index: async (path) => {
+  index: async (path, params) => {
     try {
-      const response = await base_api.get(path);
+      const response = await base_api.get(path, { params });
       return response;
     }catch (error) {
       console.log("Error while indexing: ", error);
