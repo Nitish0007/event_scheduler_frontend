@@ -5,7 +5,7 @@ import { useAuthStore } from "../store/authStore";
 
 const WelcomePage = () => {
   const [isHost, setIsHost] = useState(false);
-  const loggedInUser = useAuthStore((state) => state.user);
+  const loggedInUser = useAuthStore((state) => state.user && state.user.id);
 
   const handleUserTypeChange = () => {
     setIsHost(!isHost);

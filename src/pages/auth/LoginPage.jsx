@@ -15,7 +15,8 @@ const LoginPage = ({ role }) => {
         const user = {
           token: jsonData.token,
           role: role,
-          email: data.email
+          email: data.email,
+          id: jsonData.id
         }
         authStore.login(user);
         navigate("/dashboard");
