@@ -2,29 +2,22 @@ import axios from 'axios';
 import { serverConfig } from '../config/serverConfig';
 
 const base_url = serverConfig.api_host || 'http://localhost:3000/api/v1/';
-const userData = localStorage.getItem("_es_user") || "";
-const storedUser = userData ? JSON.parse(userData)?.state?.user : null;
-const token = storedUser?.token ? `Bearer ${storedUser.token}` : "";
 
 const api = axios.create({
   baseURL: base_url,
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': token
   },
 });
 
 // Request Interceptor: Auto-attach tokens
 api.interceptors.request.use(
   (config) => {
-    // Check if we have a token in sessionStorage (or localStorage)
-    // Make sure matches where you store it in your Login component
     const user = localStorage.getItem("_es_user");
     if (user) {
       try {
-        const parsedUser = JSON.parse(user);
-        // Assuming your backend expects 'Bearer <token>'
+        const parsedUser = JSON.parse(user).state.user;
         if (parsedUser.token) {
           config.headers.Authorization = `Bearer ${parsedUser.token}`;
         }
@@ -40,18 +33,16 @@ api.interceptors.request.use(
 );
 
 // Response Interceptor: Global Error Handling
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    // Handle 401 Unauthorized globally
-    if (error.response && error.response.status === 401) {
-      // Clear invalid token
-      localStorage.removeItem("_es_user");
-      // Optional: Redirect to login
-      // window.location.href = '/login'; 
-    }
-    return Promise.reject(error);
-  }
-);
+// api.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     // Handle 401 Unauthorized globally
+//     if (error.response && error.response.status === 401) {
+//       localStorage.removeItem("_es_user");
+//       window.location.href = '/login'; 
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 export default api;
