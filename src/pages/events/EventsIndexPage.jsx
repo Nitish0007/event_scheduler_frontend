@@ -14,8 +14,15 @@ const EventsIndexPage = () => {
     subtitle: "List of all events",
     actions: [],
     service: eventsService,
-    path: `/${userData.id}/events`,
-    params: {}
+    path: `/${userData.id}/events.json`,
+    params: {},
+    columns: [
+      {title: "ID", field: "id"},
+      {title: "Event Title", field: "event_title"},
+      {title: "Event Venue", field: "event_venue"},
+      {title: "Total tickets", field: "tickets_count"},
+      {title: "Event Date", field: "event_date"},
+    ]
   }
   
   const role = userData.role;
